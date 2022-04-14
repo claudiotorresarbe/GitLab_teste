@@ -1,9 +1,9 @@
 stages:
-    - test
+    - build
 
 newsletter:
     image: python:latest
-    stage: test
+    stage: build
     before_script:
         - python -m venv env
         - env/Scripts/activate
