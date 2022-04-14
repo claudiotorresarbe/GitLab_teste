@@ -1,4 +1,4 @@
 fastFlask/
-newsletter/app/env/
+**env/
 database.db
 **__pycache__
