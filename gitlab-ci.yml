@@ -1,0 +1,12 @@
+stages:
+    - test
+
+newsletter:
+    image: python:latest
+    stage: teste
+    before_script:
+        - python -m venv env
+        - env/Scripts/activate
+        - pip install -r newsletter/app/requirements.txt
+    script:
+        -python  newsletter/app/main.py
