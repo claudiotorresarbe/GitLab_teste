@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}cadastro{% endblock %}
+{% block body %}
+
+    <h1>cadastro</h1>
+
+    {% with alert = get_flashed_messages(with_categories=true) %}
+        {% for text, type in alert %}
+            {{type | capitalize}}! {{text}}
+        {% endfor %}
+    {% endwith %}
+
+    <form method="POST">
+        <input type="text" name="email" value="{{data[0]}}" placeholder="Email" autocomplete="off" {{'' if request.args.get('action') not in('info','delete') else 'disabled'}}></br></br>
+        <label>Status</label>
+        <select name="status" {{'' if request.args.get('action') not in('info','delete') else 'disabled'}}>
+            <option value="-1">Status</option>
+            <option value="1" {{'selected' if data[1] == 1}}>Ativo</option>
+            <option value="0" {{'selected' if data[1] == 0}}>Inativo</option>
+        </select>
+        {% if request.args.get('action') in(None,'edit','delete') %}
+            <button type="submit">Salvar</button></br></br>
+        {% endif %}
+        <a href="/cadastro">Voltar</a>
+    </form>
+
+{% endblock %}
+    

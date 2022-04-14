@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}cadastro{% endblock %}
+{% block body %}
+
+    <h1>cadastro</h1>
+
+    {% with alert = get_flashed_messages(with_categories=true) %}
+        {% for text, type in alert %}
+            {type | capitalize}! {text}
+        {% endfor %}
+    {% endwith %}
+
+    {% if data %}
+    <form method="GET">
+        <input type="text" name="search" value="{{request.args.get('search') or ''}}" placeholder="Pesquisar por..." autocomplete="off">
+        <button type="submit">Pesquisar</button>
+    </form>
+    <table border="1">
+        <tr>
+            <th>COL A</th>
+            <th>COL B</th>
+            <th>COL C</th>
+            <th><a href="/cadastroform">+ Novo</a></th>
+        </tr>
+        {% for a,b,c in data[0:row] %}
+        <tr>
+            <th>{{a}}</th>
+            <td>{{b}}</td>
+            <td>{{c}}</td>
+            <td>
+                <a href="/cadastroform?action=info&id={{a}}">Ver</a> | 
+                <a href="/cadastroform?action=edit&id={{a}}">Editar</a> | 
+                <a href="/cadastroform?action=delete&id={{a}}">Deletar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    {% if request.args.get('page')|int > 0 %}
+        <a href="/cadastro?search={{request.args.get('search') or ''}}&page={{request.args.get('page')|int -1}}">Anterior</a>
+    {% else %}
+        <p>Anterior</p>
+    {% endif %}
+
+    {% if data|length >row %}
+        <a href="/cadastro?search={{request.args.get('search') or ''}}&page={{request.args.get('page')|int +1}}">Próximo</a>
+    {% else %}
+        <P>Próximo</P>
+    {% endif %}
+
+    {% else %}
+        <p>=( nenhum item encontrado.<a href="/cadastro">voltar</a></p>
+        <a href="/cadastroform">Novo</a>
+    {% endif %}
+
+{% endblock %}
+    

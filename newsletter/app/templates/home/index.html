@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}home{% endblock %}
+{% block body %}
+<h1>home</h1>
+{% with alert = get_flashed_messages(with_categories=true) %}
+{% for text, type in alert %}
+{type | capitalize}! {text}
+{% endfor %}
+{% endwith %}
+{% endblock %}
+    
